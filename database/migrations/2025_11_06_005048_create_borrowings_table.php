@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('borrowings', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        $table->id();
+        $table->foreignId('student_id')->constrained()->onDelete('cascade');
+        $table->foreignId('book_id')->constrained()->onDelete('cascade');
+        $table->date('borrow_date');
+        $table->date('return_date')->nullable();
+        $table->enum('status', ['Dipinjam', 'Dikembalikan'])->default('Dipinjam');
+        $table->timestamps();
         });
     }
 
