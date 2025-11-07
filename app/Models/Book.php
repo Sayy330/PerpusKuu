@@ -2,21 +2,23 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-    use HasFactory;
-
 
 class Book extends Model
 {
-     protected $fillable = ['title', 'author', 'year', 'category_id', 'stock'];
+    use HasFactory;
+
+    protected $fillable = ['title', 'author', 'category_id', 'stock', 'cover', 'description'];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function borrowings()
+    // Accessor untuk status ketersediaan
+    public function getStatusAttribute()
     {
-        return $this->hasMany(Borrowing::class);
+        return $this->stock > 0 ? 'Tersedia' : 'Dipinjam Semua';
     }
 }

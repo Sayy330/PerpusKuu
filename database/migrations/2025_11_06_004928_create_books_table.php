@@ -15,11 +15,12 @@ return new class extends Migration
         $table->id();
         $table->string('title');
         $table->string('author');
-        $table->integer('year');
         $table->foreignId('category_id')->constrained()->onDelete('cascade');
-        $table->integer('stock');
+        $table->integer('stock')->default(1);
+        $table->string('cover')->nullable(); // path gambar cover
+        $table->text('description')->nullable();
         $table->timestamps();
-        });
+    });
     }
 
     /**
